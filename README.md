@@ -69,7 +69,7 @@ graph TD
 
 ## 🛠 Technology Stack
 
-- **Core Framework:** [React Native](https://reactnative.dev/) (v0.74+) with [Expo](https://expo.dev/) (SDK 51+)
+- **Core Framework:** [React Native](https://reactnative.dev/) (v0.76+) with [Expo](https://expo.dev/) (SDK 52 - Official Expo Go Compatible)
 - **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict type safety and maintainable codebase)
 - **Navigation:** [React Navigation](https://reactnavigation.org/) (Native Stack & Bottom Tabs)
 - **Animations & Gestures:** [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) & [Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/)
