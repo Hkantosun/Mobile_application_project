@@ -189,14 +189,14 @@ npx expo start
 
 - [x] Comprehensive architecture documentation & technical specification ([README.md](README.md))
 - [x] Dual-tab feed concept added: Study Feed vs. General Knowledge (For You)
-- [ ] Initialize Expo + TypeScript foundation
-- [ ] Implement Spaced Repetition engine (`spacedRepetition.ts`) and data contracts
-- [ ] Develop local offline persistence layer (`storageService.ts`)
-- [ ] Build vertical full-screen Reels feed (`FeedScreen`) with `FeedHeaderTabs` and flip animations
-- [ ] Preload curated General Knowledge trivia pack (Science, History, Tech, Art)
-- [ ] Implement in-feed Active Recall Mini Quizzes (`QuizScreen`)
-- [ ] Build Deck manager and custom Card creation screens
-- [ ] Implement User Profile, daily study streaks, and visual analytics
+- [x] Initialize Expo + TypeScript foundation
+- [x] Implement Spaced Repetition engine (`spacedRepetition.ts`) and data contracts
+- [x] Develop local offline persistence layer (`storageService.ts`)
+- [x] Build vertical full-screen Reels feed (`FeedScreen`) with `FeedHeaderTabs` and flip animations
+- [x] Preload curated General Knowledge trivia pack (Science, History, Tech, Art)
+- [x] Implement in-feed Active Recall Mini Quizzes (`QuizModal`)
+- [x] Build Deck manager and custom Card creation screens (`DeckListScreen`, `CreateCardScreen`)
+- [x] Implement User Profile, daily study streaks, and visual analytics (`ProfileScreen`)
 - [ ] *Future Scope:* AI-driven automatic flashcard generation from uploaded lecture notes/PDFs via LLM integration
 
 ---
