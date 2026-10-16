@@ -47,11 +47,11 @@ The application satisfies academic project criteria with **5 core screens and de
 
 ```mermaid
 graph TD
-    A[Home / Deck Selection] --> B[Vertical Feed Screen]
-    B -->|Every 5-10 Cards| C[In-Feed Mini Quiz]
-    B -->|Bookmark / Hard Card| D[Saved & Review Queue]
-    A --> E[Create New Deck / Cards]
-    A --> F[Profile & Analytics (Streak & Stats)]
+    A["Home / Deck Selection"] --> B["Vertical Feed Screen"]
+    B -->|"Every 5-10 Cards"| C["In-Feed Mini Quiz"]
+    B -->|"Bookmark / Hard Card"| D["Saved & Review Queue"]
+    A --> E["Create New Deck / Cards"]
+    A --> F["Profile & Analytics (Streak & Stats)"]
 ```
 
 1. **Feed Screen (`FeedScreen`):** Full-screen vertical paging, tap-to-flip card animation, difficulty ratings (*Easy*, *Good*, *Hard*).
