@@ -1,5 +1,5 @@
-# 📱 ReelLearn — Dikey Akışlı Mobil Öğrenme Platformu
-### *TikTok Deneyimini Aralıklı Tekrar ve Aktif Hatırlama ile Birleştiren Yeni Nesil Eğitim Uygulaması*
+# 📱 ReelLearn — Vertical Micro-Learning Mobile App
+### *Next-Generation Mobile Learning Platform Combining TikTok-Style Feeds with Spaced Repetition & Active Recall*
 
 [![React Native](https://img.shields.io/badge/Framework-React%20Native-61DAFB?logo=react&logoColor=white)](https://reactnative.dev/)
 [![Expo](https://img.shields.io/badge/Platform-Expo-000020?logo=expo&logoColor=white)](https://expo.dev/)
@@ -9,75 +9,75 @@
 
 ---
 
-## 📌 Proje Genel Bakışı
+## 📌 Project Overview
 
-**ReelLearn**, üniversite öğrencilerinin ve sınavlara hazırlanan bireylerin geleneksel, monoton bilgi kartı (flashcard) deneyimini **TikTok / Instagram Reels** mekaniğiyle yeniden tanımlayan açık kaynaklı bir mobil öğrenme uygulamasıdır. 
+**ReelLearn** is an open-source mobile learning application designed for university students and lifelong learners, transforming traditional, static flashcards into an addictive **TikTok / Instagram Reels-style vertical feed experience**.
 
-Kullanıcıların günlük telefon kullanım alışkanlıklarını (sonsuz dikey kaydırma) bilişsel psikolojinin en güçlü iki öğrenme prensibi olan **Aralıklı Tekrar (Spaced Repetition)** ve **Aktif Geri Çağırma (Active Recall)** ile harmanlar.
+Instead of fighting mobile screen time habits, ReelLearn leverages them: merging seamless, swipe-based vertical browsing with evidence-based cognitive psychology principles—primarily **Spaced Repetition** and **Active Recall**.
 
 ---
 
-## 🧠 Bilimsel ve Pedagojik Temeller
+## 🧠 Scientific & Pedagogical Foundations
 
-| Yöntem | Açıklama | Bilimsel Referans |
+| Learning Method | Description | Scientific Reference |
 | :--- | :--- | :--- |
-| **Aralıklı Tekrar (Spaced Repetition)** | Bilginin unutulma eğrisine (Ebbinghaus) göre tam unutulmak üzereyken tekrar gösterilmesi. Kolay kartlar seyrek, zor kartlar sık gösterilir. | *Ebbinghaus (1885), Leitner Kutusu & SuperMemo Algoritması* |
-| **Aktif Geri Çağırma (Active Recall)** | Pasif okuma yerine beyni cevabı hatırlamaya zorlama. Bilgi kartının arkasını çevirme ve aralara serpiştirilmiş Mini Test adımları. | *Roediger & Karpicke (2006) — Test Yaparak Öğrenme Etkisi* |
-| **Mikro-Öğrenme (Micro-learning)** | Yoğun ders notlarını 15-30 saniyede tüketilebilir, odaklanmış bilgi parçacıklarına bölme. | *Kısa Süreli Bellek ve Bilişsel Yük Teorisi (Sweller)* |
-| **Oyunlaştırma (Gamification)** | Günlük çalışma serisi (Streak), XP kazanımı ve başarı rozetleri ile sürdürülebilir alışkanlık döngüsü oluşturma. | *Yu-kai Chou — Octalysis Çerçevesi* |
+| **Spaced Repetition** | Scheduling reviews at scientifically calculated intervals just before the information is forgotten. Hard concepts appear frequently; easy ones appear spaced out. | *Hermann Ebbinghaus (Forgetting Curve), Sebastian Leitner (Box System), SuperMemo Algorithm* |
+| **Active Recall** | Testing memory retrieval actively instead of passive reading. Users ponder the concept before flipping the card, supplemented with periodic mini-tests. | *Roediger & Karpicke (2006) — The Power of Testing Memory* |
+| **Micro-Learning** | Chunking complex subject notes into high-impact, 15–30 second digestible bites. | *Cognitive Load Theory (John Sweller)* |
+| **Gamification & Habit Loops** | Daily streaks, XP points, and achievement badges to establish long-term study habits rather than cramming. | *Yu-kai Chou — Octalysis Framework* |
 
 ---
 
-## ✨ Temel Özellikler
+## ✨ Key Features
 
-- 🔄 **Dikey Kaydırmalı Öğrenme Akışı (Reels Feed):** Tam ekran boyutunda kartlar; yukarı kaydırarak sonraki bilgiye geçiş, dokunarak cevabı ortaya çıkarma animasyonu.
-- 🎯 **"Anladım" & "Tekrar Et" Değerlendirmesi:** Kullanıcının her karta verdiği geri bildirime göre aralıklı tekrar sıklığını dinamik ayarlama.
-- 🧩 **Araya Giren Mini Testler (Quiz In-Feed):** Her 5-10 kartta bir karşısına çıkan çoktan seçmeli sorularla anlık geri çağırma pratiği.
-- 📚 **Ders ve Konu Kategorileri (Decks):** Python, Lineer Cebir, Algoritmalar, Yabancı Dil vb. ders bazlı dikey ayrıştırma.
-- ✍️ **Kendi Kartını / Desteni Oluştur:** Notlardan doğrudan soru-cevap çiftleri ekleyebilme.
-- 📊 **Detaylı İlerleme ve İstatistikler:** Günlük tamamlanan kart sayısı, aktif seri (streak), başarı oranı ve en çok zorlanılan kavramların analizi.
-- 💾 **Çevrimdışı Öncelikli Yerel Depolama (Offline-First):** AsyncStorage / SQLite altyapısıyla internetsiz ortamda bile kesintisiz çalışma.
-- 🎨 **Modern & Yüksek Kontrastlı UI:** Karanlık mod (Dark mode) desteği, modern tipografi ve geniş dokunma hedefleri.
+- 🔄 **Vertical Learning Feed (Reels-style):** Full-screen interactive cards. Swipe up for the next concept, tap to reveal answers with smooth flip animations.
+- 🎯 **"Understood" vs. "Review Again" Feedback:** Real-time feedback alters the card's interval and repetition weight.
+- 🧩 **In-Feed Mini Quizzes:** Quick, interactive multiple-choice checkpoints appearing every 5–10 cards to reinforce retention.
+- 📚 **Course & Topic Decks:** Organize study content by subjects (e.g., Python, Linear Algebra, Algorithms, Languages).
+- ✍️ **Custom Deck & Card Creator:** Create custom cards with syntax-highlighted code snippets and markdown text.
+- 📊 **Progress & Analytics:** Track study streaks, cards mastered, daily targets, and subjects requiring reinforcement.
+- 💾 **Offline-First Storage:** Fast, persistent local storage via AsyncStorage / SQLite ensuring zero network latency.
+- 🎨 **Modern, High-Contrast UI:** Built with sleek dark mode aesthetics, intuitive micro-animations, and accessible touch targets.
 
 ---
 
-## 📱 Ekran Mimarisi
+## 📱 Screen Architecture & User Flow
 
-Uygulama ders projesi standartlarına uygun olarak en az **4 ana modül ve 5 ekran** içerir:
+The application satisfies academic project criteria with **5 core screens and dedicated interaction flows**:
 
 ```mermaid
 graph TD
-    A[Giriş / Kategori Seçimi] --> B[Dikey Kart Akışı (Feed Screen)]
-    B -->|Her 5-10 Kartta Bir| C[Mini Test / Quiz Ekranı]
-    B -->|Kartı Kaydet| D[Kaydedilenler & Zor Kartlar]
-    A --> E[Yeni Deste / Kart Ekleme]
-    A --> F[Profil & İstatistikler (Streak & İlerleme)]
+    A[Home / Deck Selection] --> B[Vertical Feed Screen]
+    B -->|Every 5-10 Cards| C[In-Feed Mini Quiz]
+    B -->|Bookmark / Hard Card| D[Saved & Review Queue]
+    A --> E[Create New Deck / Cards]
+    A --> F[Profile & Analytics (Streak & Stats)]
 ```
 
-1. **Akış Ekranı (`FeedScreen`):** TikTok benzeri tam ekran dikey kaydırma, kart çevirme, sesli/görsel ipucu, *Anladım / Kolay / Tekrar* aksiyonları.
-2. **Kategori & Deste Yönetimi (`DeckListScreen` & `DeckDetailScreen`):** Derslerin listelendiği, yeni konu ve kartların eklenebildiği alan.
-3. **Mini Test Ekranı (`QuizScreen`):** Akış esnasında veya isteğe bağlı açılan çoktan seçmeli aktif test ekranı.
-4. **İlerleme & Profil Ekranı (`ProfileScreen`):** Günlük hedef takibi, gün serisi (streak sayacı), toplam öğrenilen kartlar, zayıf noktalar.
-5. **Kart Ekleme / Not Yükleme (`CreateCardScreen`):** Notlardan hızlı kart türetme ve düzenleme arayüzü.
+1. **Feed Screen (`FeedScreen`):** Full-screen vertical paging, tap-to-flip card animation, difficulty ratings (*Easy*, *Good*, *Hard*).
+2. **Decks & Categories (`DeckListScreen` & `DeckDetailScreen`):** Browse topics, view card counts, and manage study sets.
+3. **Mini Quiz Module (`QuizScreen`):** Multiple-choice knowledge validation triggered dynamically or on demand.
+4. **Profile & Analytics (`ProfileScreen`):** Daily goals, consecutive day streak counters, mastery rates, and weak-topic analysis.
+5. **Card Creator (`CreateCardScreen`):** Fast creation interface for adding custom notes, code snippets, and answers.
 
 ---
 
-## 🛠 Teknoloji Yığını
+## 🛠 Technology Stack
 
-- **Çekirdek:** [React Native](https://reactnative.dev/) (v0.74+) + [Expo](https://expo.dev/) (SDK 51+)
-- **Dil:** [TypeScript](https://www.typescriptlang.org/) (Tip güvenliği ve temiz kod mimarisi)
-- **Navigasyon:** [React Navigation](https://reactnavigation.org/) (Native Stack & Bottom Tabs)
-- **Animasyonlar & Hareketler:** [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) & [Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/)
-- **Yerel Depolama:** `@react-native-async-storage/async-storage` (Çevrimdışı veri kalıcılığı)
-- **İkonlar:** `@expo/vector-icons` (Feather, Ionicons)
-- **Tarih & Zaman Hesaplaması:** `date-fns` (Aralıklı tekrar zaman damgaları)
+- **Core Framework:** [React Native](https://reactnative.dev/) (v0.74+) with [Expo](https://expo.dev/) (SDK 51+)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict type safety and maintainable codebase)
+- **Navigation:** [React Navigation](https://reactnavigation.org/) (Native Stack & Bottom Tabs)
+- **Animations & Gestures:** [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/) & [Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/)
+- **Local Persistence:** `@react-native-async-storage/async-storage` (Offline-first data persistence)
+- **Icons:** `@expo/vector-icons` (Feather, Ionicons)
+- **Date Calculations:** `date-fns` (Spaced repetition intervals and streak logic)
 
 ---
 
-## 🗄 Veri Modeli Mimarisi
+## 🗄 Data Model Schemas
 
 ```typescript
-// Deste (Deck)
+// Deck Model
 interface Deck {
   id: string;
   title: string;
@@ -88,24 +88,24 @@ interface Deck {
   createdAt: number;
 }
 
-// Bilgi Kartı (Card)
+// Flashcard Model
 interface Card {
   id: string;
   deckId: string;
-  front: string;          // Soru veya kavram
-  back: string;           // Cevap veya açıklama
-  codeSnippet?: string;   // Opsiyonel kod bloğu
+  front: string;          // Question or concept prompt
+  back: string;           // Explanation or solution
+  codeSnippet?: string;   // Optional syntax code snippet
   difficulty: 'easy' | 'medium' | 'hard';
   repetitionCount: number;
   intervalDays: number;
-  nextReviewDate: number; // Unix zaman damgası
+  nextReviewDate: number; // Unix timestamp
   isBookmarked: boolean;
 }
 
-// Kullanıcı İlerlemesi (Progress)
+// User Progress & Gamification Model
 interface UserProgress {
   streak: number;
-  lastStudiedDate: string; // YYYY-MM-DD
+  lastStudiedDate: string; // Format: YYYY-MM-DD
   dailyGoal: number;
   todayCompletedCount: number;
   totalCardsReviewed: number;
@@ -115,78 +115,78 @@ interface UserProgress {
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma Rehberi
+## 🚀 Getting Started
 
-### Gereksinimler
-- Node.js (v18.0.0 veya üstü)
-- npm veya yarn / pnpm
-- Mobil cihazınızda **Expo Go** uygulaması (iOS App Store veya Google Play Store)
+### Prerequisites
+- Node.js (v18.0.0 or higher)
+- npm, yarn, or pnpm
+- **Expo Go** mobile app on your physical device (available on iOS App Store & Google Play Store)
 
-### 1. Depoyu Klonlayın
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Hkantosun/Mobile_application_project.git
 cd Mobile_application_project
 ```
 
-### 2. Bağımlılıkları Yükleyin
+### 2. Install Dependencies
 ```bash
 npm install
 ```
 
-### 3. Geliştirme Sunucusunu Başlatın
+### 3. Start the Development Server
 ```bash
 npx expo start
 ```
 
-### 4. Uygulamayı Cihazda Görüntüleyin
-- Terminalde açılan **QR kodunu** telefonunuzun kamerası (iOS) veya Expo Go (Android) ile taratın.
-- Alternatif olarak Mac ortamında iOS Simülatörü için `i`, Android Emülatör için `a` tuşuna basın.
+### 4. Run on Device / Simulator
+- Scan the printed **QR code** in your terminal using the Camera app (iOS) or the Expo Go app (Android).
+- Or press `i` for iOS Simulator / `a` for Android Emulator on macOS.
 
 ---
 
-## 📁 Planlanan Dizin Yapısı
+## 📁 Planned Project Structure
 
 ```text
-├── assets/                 # Görseller, logolar ve yazı tipleri
+├── assets/                 # Brand assets, logos, and custom fonts
 ├── src/
-│   ├── components/         # Yeniden kullanılabilir UI bileşenleri
-│   │   ├── CardItem.tsx    # Tam ekran dikey kaydırılan kart
-│   │   ├── FlipCard.tsx    # Kart çevirme animasyon bileşeni
-│   │   ├── QuizItem.tsx    # Mini test soru bileşeni
-│   │   └── StreakBadge.tsx # Seri ve istatistik rozetleri
-│   ├── screens/            # Uygulama ekranları
+│   ├── components/         # Reusable UI components
+│   │   ├── CardItem.tsx    # Full-screen vertical swipeable card
+│   │   ├── FlipCard.tsx    # Smooth 3D card flip animation
+│   │   ├── QuizItem.tsx    # Interactive multiple-choice item
+│   │   └── StreakBadge.tsx # Gamification streak & XP badges
+│   ├── screens/            # Application screen components
 │   │   ├── FeedScreen.tsx
 │   │   ├── DeckListScreen.tsx
 │   │   ├── CreateCardScreen.tsx
 │   │   ├── QuizScreen.tsx
 │   │   └── ProfileScreen.tsx
-│   ├── navigation/         # Navigation yapılandırması (Tabs & Stack)
-│   ├── services/           # Depolama ve veri servisleri (AsyncStorage)
-│   ├── utils/              # Spaced repetition algoritması ve yardımcılar
-│   ├── types/              # TypeScript tip tanımları
-│   └── constants/          # Renk paleti, temalar ve mock veriler
-├── App.tsx                 # Ana uygulama başlangıç noktası
-├── app.json                # Expo konfigürasyonu
+│   ├── navigation/         # React Navigation stacks & bottom tabs
+│   ├── services/           # AsyncStorage persistence layer
+│   ├── utils/              # Spaced repetition algorithms (SM-2 / Leitner)
+│   ├── types/              # TypeScript types & interface declarations
+│   └── constants/          # Theme tokens, palette, and preloaded sample decks
+├── App.tsx                 # Main application root
+├── app.json                # Expo configuration file
 ├── package.json
 └── tsconfig.json
 ```
 
 ---
 
-## 🗺 Yol Haritası (Roadmap)
+## 🗺 Roadmap
 
-- [x] Detaylı mimari dokümantasyonu ve proje planının hazırlanması (README.md)
-- [ ] Expo + TypeScript çekirdek projesinin kurulması
-- [ ] Aralıklı Tekrar algoritması (`spacedRepetition.ts`) ve veri modellerinin kodlanması
-- [ ] AsyncStorage yerel depolama katmanının (`storageService.ts`) yazılması
-- [ ] Dikey tam ekran Reels akışı (`FeedScreen`) ve kart çevirme animasyonunun geliştirilmesi
-- [ ] Araya giren Mini Test (`QuizScreen`) modülünün eklenmesi
-- [ ] Kategori ve kart ekleme ekranlarının tamamlanması
-- [ ] İlerleme, Streak ve başarı ekranının kodlanması
-- [ ] *Gelecek Aşama:* PDF/Not yükleme ve LLM (OpenAI) ile otomatik kart üretme modülü
+- [x] Comprehensive architecture documentation & technical specification ([README.md](README.md))
+- [ ] Initialize Expo + TypeScript foundation
+- [ ] Implement Spaced Repetition engine (`spacedRepetition.ts`) and data contracts
+- [ ] Develop local offline persistence layer (`storageService.ts`)
+- [ ] Build vertical full-screen Reels feed (`FeedScreen`) with gesture-based navigation and flip animations
+- [ ] Implement in-feed Active Recall Mini Quizzes (`QuizScreen`)
+- [ ] Build Deck manager and custom Card creation screens
+- [ ] Implement User Profile, daily study streaks, and visual analytics
+- [ ] *Future Scope:* AI-driven automatic flashcard generation from uploaded lecture notes/PDFs via LLM integration
 
 ---
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje [MIT Lisansı](LICENSE) kapsamında lisanslanmıştır.
+Distributed under the [MIT License](LICENSE).
