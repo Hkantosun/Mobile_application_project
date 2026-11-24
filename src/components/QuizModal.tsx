@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
   Modal,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { QuizQuestion } from '../types';
-import { THEME } from '../constants/theme';
+import { useAppTheme, AppColors } from '../context/ThemeContext';
 
 interface QuizModalProps {
   visible: boolean;
@@ -23,6 +24,8 @@ export const QuizModal: React.FC<QuizModalProps> = ({
   onClose,
   onAnswerCorrect,
 }) => {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
@@ -55,211 +58,231 @@ export const QuizModal: React.FC<QuizModalProps> = ({
     >
       <View style={styles.overlay}>
         <View style={styles.modalCard}>
-          {/* Header */}
-          <View style={styles.header}>
-            <View style={styles.badge}>
-              <Ionicons name="flash" size={14} color={THEME.colors.accentYellow} />
-              <Text style={styles.badgeText}>Aktif Hatırlama Mini Testi</Text>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.headerRow}>
+              <View style={styles.topicPill}>
+                <Ionicons name="help-circle" size={15} color={colors.primary} />
+                <Text style={styles.topicPillText}>MİNİ QUİZ</Text>
+              </View>
+
+              <TouchableOpacity onPress={handleClose} style={styles.closeBtn} activeOpacity={0.7}>
+                <Ionicons name="close" size={18} color={colors.textMuted} />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={handleClose} style={styles.closeBtn}>
-              <Ionicons name="close" size={20} color={THEME.colors.textMuted} />
-            </TouchableOpacity>
-          </View>
 
-          {/* Question Text */}
-          <Text style={styles.questionText}>{quiz.question}</Text>
+            <Text style={styles.questionText}>{quiz.question}</Text>
 
-          {/* Options */}
-          <View style={styles.optionsList}>
-            {quiz.options.map((option, idx) => {
-              let optionStyle = styles.optionItem;
-              let textColor = THEME.colors.textPrimary;
-              let iconName: any = 'radio-button-off';
-              let iconColor = THEME.colors.textMuted;
+            <View style={styles.optionsList}>
+              {quiz.options.map((option, idx) => {
+                const letter = String.fromCharCode(65 + idx);
+                const isSelected = selectedIndex === idx;
+                const isCorrectOption = idx === quiz.correctAnswerIndex;
 
-              if (isAnswered) {
-                if (idx === quiz.correctAnswerIndex) {
-                  optionStyle = { ...optionStyle, ...styles.optionCorrect };
-                  textColor = '#10B981';
-                  iconName = 'checkmark-circle';
-                  iconColor = '#10B981';
-                } else if (idx === selectedIndex) {
-                  optionStyle = { ...optionStyle, ...styles.optionIncorrect };
-                  textColor = '#EF4444';
-                  iconName = 'close-circle';
-                  iconColor = '#EF4444';
-                }
-              }
+                return (
+                  <TouchableOpacity
+                    key={idx}
+                    style={[
+                      styles.optionItem,
+                      isAnswered && isCorrectOption && styles.optionCorrect,
+                      isAnswered && isSelected && !isCorrectOption && styles.optionWrong,
+                    ]}
+                    onPress={() => handleSelectOption(idx)}
+                    disabled={isAnswered}
+                    activeOpacity={0.8}
+                  >
+                    <View
+                      style={[
+                        styles.letterCircle,
+                        isAnswered && isCorrectOption && styles.circleCorrect,
+                        isAnswered && isSelected && !isCorrectOption && styles.circleWrong,
+                      ]}
+                    >
+                      {isAnswered && isCorrectOption ? (
+                        <Ionicons name="checkmark" size={14} color={colors.onPrimary} />
+                      ) : isAnswered && isSelected ? (
+                        <Ionicons name="close" size={14} color="#FFFFFF" />
+                      ) : (
+                        <Text style={[styles.letterText, { color: colors.textMuted }]}>
+                          {letter}
+                        </Text>
+                      )}
+                    </View>
+                    <Text style={styles.optionText}>{option}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
 
-              return (
-                <TouchableOpacity
-                  key={idx}
-                  style={optionStyle}
-                  onPress={() => handleSelectOption(idx)}
-                  disabled={isAnswered}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons name={iconName} size={18} color={iconColor} style={styles.optionIcon} />
-                  <Text style={[styles.optionText, { color: textColor }]}>{option}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          {/* Result & Explanation */}
-          {isAnswered && (
-            <View
-              style={[
-                styles.feedbackBox,
-                isCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect,
-              ]}
-            >
-              <View style={styles.feedbackTitleRow}>
-                <Ionicons
-                  name={isCorrect ? 'trophy' : 'alert-circle'}
-                  size={18}
-                  color={isCorrect ? '#10B981' : '#EF4444'}
-                />
+            {isAnswered && (
+              <View
+                style={[
+                  styles.feedbackBox,
+                  isCorrect ? styles.feedbackCorrect : styles.feedbackWrong,
+                ]}
+              >
                 <Text
                   style={[
                     styles.feedbackTitle,
-                    { color: isCorrect ? '#10B981' : '#EF4444' },
+                    { color: isCorrect ? colors.primary : colors.error },
                   ]}
                 >
-                  {isCorrect ? 'Tebrikler! +25 XP Kazandın' : 'Yanlış Cevap! Tekrar İncele'}
+                  {isCorrect ? 'Doğru! +25 XP Kazandın ✨' : 'Açıklama'}
                 </Text>
+                <Text style={styles.explanationText}>{quiz.explanation}</Text>
               </View>
-              <Text style={styles.explanationText}>{quiz.explanation}</Text>
-            </View>
-          )}
+            )}
 
-          {/* Bottom Button */}
-          {isAnswered && (
-            <TouchableOpacity style={styles.continueBtn} onPress={handleClose}>
-              <Text style={styles.continueBtnText}>Akışa Devam Et</Text>
-            </TouchableOpacity>
-          )}
+            {isAnswered && (
+              <TouchableOpacity
+                style={styles.continueBtn}
+                onPress={handleClose}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.continueBtnText}>Akışa Devam Et</Text>
+                <Ionicons name="arrow-forward" size={16} color={colors.onPrimary} />
+              </TouchableOpacity>
+            )}
+          </ScrollView>
         </View>
       </View>
     </Modal>
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (colors: AppColors) => StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: '#000000B3',
+    backgroundColor: colors.modalOverlay,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: THEME.spacing.md,
+    padding: 16,
   },
   modalCard: {
     width: '100%',
-    backgroundColor: THEME.colors.cardBackground,
-    borderRadius: THEME.borderRadius.lg,
-    padding: THEME.spacing.lg,
-    borderWidth: 1.5,
-    borderColor: THEME.colors.cardBorder,
+    maxHeight: '88%',
+    backgroundColor: colors.surface,
+    borderRadius: 22,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
-  header: {
+  headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: THEME.spacing.md,
+    marginBottom: 14,
   },
-  badge: {
+  topicPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FBBF241F',
+    backgroundColor: colors.surfaceLow,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: THEME.borderRadius.full,
-    borderWidth: 1,
-    borderColor: '#FBBF2444',
+    borderRadius: 999,
+    gap: 5,
   },
-  badgeText: {
-    color: THEME.colors.accentYellow,
-    fontSize: 12,
+  topicPillText: {
+    color: colors.primary,
+    fontSize: 11,
     fontWeight: '700',
-    marginLeft: 5,
   },
   closeBtn: {
-    padding: 4,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: colors.surfaceLow,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   questionText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
-    color: THEME.colors.textPrimary,
-    lineHeight: 25,
-    marginBottom: THEME.spacing.lg,
+    color: colors.textPrimary,
+    lineHeight: 23,
+    marginBottom: 14,
   },
   optionsList: {
-    gap: 10,
-    marginBottom: THEME.spacing.md,
+    gap: 8,
   },
   optionItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1E2338',
-    padding: 14,
-    borderRadius: THEME.borderRadius.md,
+    backgroundColor: colors.background,
+    padding: 12,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#2E3854',
+    borderColor: colors.borderSubtle,
+    gap: 10,
   },
   optionCorrect: {
-    backgroundColor: '#10B9811A',
-    borderColor: '#10B981',
+    backgroundColor: colors.primarySoftBg,
+    borderColor: colors.primary,
   },
-  optionIncorrect: {
-    backgroundColor: '#EF44441A',
-    borderColor: '#EF4444',
+  optionWrong: {
+    backgroundColor: colors.errorSoftBg,
+    borderColor: colors.error,
   },
-  optionIcon: {
-    marginRight: 10,
+  letterCircle: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: colors.surfaceContainer,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  circleCorrect: {
+    backgroundColor: colors.primary,
+  },
+  circleWrong: {
+    backgroundColor: colors.error,
+  },
+  letterText: {
+    fontSize: 11,
+    fontWeight: '700',
   },
   optionText: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 13,
+    color: colors.textPrimary,
+    fontWeight: '500',
     flex: 1,
+    lineHeight: 18,
   },
   feedbackBox: {
+    borderRadius: 12,
     padding: 12,
-    borderRadius: THEME.borderRadius.md,
-    marginVertical: 10,
+    marginTop: 12,
     borderWidth: 1,
   },
   feedbackCorrect: {
-    backgroundColor: '#10B98114',
-    borderColor: '#10B98144',
+    backgroundColor: colors.primarySoftBg,
+    borderColor: colors.primarySoftBorder,
   },
-  feedbackIncorrect: {
-    backgroundColor: '#EF444414',
-    borderColor: '#EF444444',
-  },
-  feedbackTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 4,
+  feedbackWrong: {
+    backgroundColor: colors.errorSoftBg,
+    borderColor: colors.error,
   },
   feedbackTitle: {
     fontSize: 13,
     fontWeight: '700',
-    marginLeft: 6,
+    marginBottom: 4,
   },
   explanationText: {
     fontSize: 12,
-    color: THEME.colors.textLight,
+    color: colors.textSecondary,
     lineHeight: 18,
   },
   continueBtn: {
-    backgroundColor: THEME.colors.primary,
-    paddingVertical: 14,
-    borderRadius: THEME.borderRadius.md,
+    backgroundColor: colors.primary,
+    paddingVertical: 13,
+    borderRadius: 12,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 8,
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: 14,
   },
   continueBtnText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontWeight: '700',
     fontSize: 14,
   },

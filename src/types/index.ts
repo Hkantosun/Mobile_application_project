@@ -55,6 +55,10 @@ export interface UserProgress {
   totalCardsReviewed: number;
   xp: number;
   level: number;
+  displayName?: string;
+  username?: string;
+  bio?: string;
+  avatarUrl?: string;
 }
 
 export interface ReviewAction {

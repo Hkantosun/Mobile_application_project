@@ -64,7 +64,8 @@ export function calculateNextReview(card: Card, rating: DifficultyLevel): {
  */
 export function calculateProgressUpdate(
   currentProgress: UserProgress,
-  xpEarned: number
+  xpEarned: number,
+  incrementCardCount: boolean = true
 ): UserProgress {
   const todayStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
   const lastDate = currentProgress.lastStudiedDate;
@@ -72,35 +73,40 @@ export function calculateProgressUpdate(
   let newStreak = currentProgress.streak;
   let newTodayCount = currentProgress.todayCompletedCount;
 
-  if (lastDate === todayStr) {
-    // Already studied today, just increment counter
-    newTodayCount += 1;
-  } else {
-    // Check if yesterday was studied
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split('T')[0];
-
-    if (lastDate === yesterdayStr) {
-      newStreak += 1;
-    } else if (!lastDate) {
-      newStreak = 1;
+  if (incrementCardCount) {
+    if (lastDate === todayStr) {
+      // Already studied today, just increment counter
+      newTodayCount += 1;
     } else {
-      // Streak broken, restart from 1
-      newStreak = 1;
+      // Check if yesterday was studied
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+      if (lastDate === yesterdayStr) {
+        newStreak += 1;
+      } else if (!lastDate) {
+        newStreak = 1;
+      } else {
+        // Streak broken, restart from 1
+        newStreak = 1;
+      }
+      newTodayCount = 1;
     }
-    newTodayCount = 1;
   }
 
-  const newTotalReviewed = currentProgress.totalCardsReviewed + 1;
+  const newTotalReviewed = incrementCardCount
+    ? currentProgress.totalCardsReviewed + 1
+    : currentProgress.totalCardsReviewed;
   const newXP = currentProgress.xp + xpEarned;
   // Level up every 100 XP
   const newLevel = Math.floor(newXP / 100) + 1;
 
   return {
+    ...currentProgress,
     streak: newStreak,
-    lastStudiedDate: todayStr,
-    dailyGoal: currentProgress.dailyGoal || 20,
+    lastStudiedDate: incrementCardCount ? todayStr : currentProgress.lastStudiedDate,
+    dailyGoal: currentProgress.dailyGoal || 15,
     todayCompletedCount: newTodayCount,
     totalCardsReviewed: newTotalReviewed,
     xp: newXP,

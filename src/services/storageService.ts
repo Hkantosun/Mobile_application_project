@@ -4,8 +4,8 @@ import { INITIAL_CARDS, INITIAL_DECKS, INITIAL_USER_PROGRESS } from '../constant
 import { calculateNextReview, calculateProgressUpdate } from '../utils/spacedRepetition';
 
 const KEYS = {
-  DECKS: '@reellearn_decks_v1',
-  CARDS: '@reellearn_cards_v1',
+  DECKS: '@reellearn_decks_v3',
+  CARDS: '@reellearn_cards_v2',
   PROGRESS: '@reellearn_progress_v1',
 };
 
@@ -61,6 +61,21 @@ export const StorageService = {
     await this.saveDecks(decks);
   },
 
+  async addDeckWithCards(deck: Deck, newCards: Card[]): Promise<void> {
+    const [decks, existingCards] = await Promise.all([this.getDecks(), this.getCards()]);
+    const updatedDecks = [deck, ...decks];
+    // Prepend AI-generated cards so they appear first in the Reels feed!
+    const updatedCards = [...newCards, ...existingCards];
+    await Promise.all([this.saveDecks(updatedDecks), this.saveCards(updatedCards)]);
+  },
+
+  async deleteDeck(deckId: string): Promise<void> {
+    const [decks, cards] = await Promise.all([this.getDecks(), this.getCards()]);
+    const updatedDecks = decks.filter(d => d.id !== deckId);
+    const updatedCards = cards.filter(c => c.deckId !== deckId);
+    await Promise.all([this.saveDecks(updatedDecks), this.saveCards(updatedCards)]);
+  },
+
   /**
    * Cards CRUD
    */
@@ -68,7 +83,23 @@ export const StorageService = {
     try {
       const data = await AsyncStorage.getItem(KEYS.CARDS);
       if (!data) return INITIAL_CARDS;
-      return JSON.parse(data);
+      const parsed: Card[] = JSON.parse(data);
+      // Hydrate missing quiz objects for built-in cards so every card has multiple-choice options
+      let modified = false;
+      const hydrated = parsed.map(card => {
+        if (!card.quiz) {
+          const initialMatch = INITIAL_CARDS.find(ic => ic.id === card.id);
+          if (initialMatch?.quiz) {
+            modified = true;
+            return { ...card, quiz: initialMatch.quiz };
+          }
+        }
+        return card;
+      });
+      if (modified) {
+        await AsyncStorage.setItem(KEYS.CARDS, JSON.stringify(hydrated));
+      }
+      return hydrated;
     } catch {
       return INITIAL_CARDS;
     }
@@ -161,9 +192,9 @@ export const StorageService = {
     }
   },
 
-  async addXP(amount: number): Promise<UserProgress> {
+  async addXP(amount: number, countAsCard: boolean = false): Promise<UserProgress> {
     const current = await this.getProgress();
-    const updated = calculateProgressUpdate(current, amount);
+    const updated = calculateProgressUpdate(current, amount, countAsCard);
     await this.saveProgress(updated);
     return updated;
   },
